@@ -18,7 +18,7 @@
 
     </div>
 
-    <!-- 讲师列表 -->
+    <!-- 用户列表 -->
     <el-table
       v-loading="listLoading"
       :data="list"
@@ -41,7 +41,7 @@
 
       <el-table-column prop="username" label="用户名" width="150" />
 
-      <el-table-column prop="nickName" label="用户昵称" />
+      <el-table-column prop="realName" label="用户姓名" />
 
       <el-table-column prop="gmtCreate" label="创建时间" width="180"/>
 
@@ -90,20 +90,17 @@ export default {
 
   // 生命周期函数：内存准备完毕，页面尚未渲染
   created() {
-    console.log('list created......')
     this.fetchData()
   },
 
   // 生命周期函数：内存准备完毕，页面渲染成功
   mounted() {
-    console.log('list mounted......')
   },
 
   methods: {
 
     // 当页码发生改变的时候
     changeSize(size) {
-      console.log(size)
       this.limit = size
       this.fetchData(1)
     },
@@ -114,7 +111,6 @@ export default {
 
     // 加载讲师列表数据
     fetchData(page = 1) {
-      console.log('翻页。。。' + page)
       // 异步获取远程数据（ajax）
       this.page = page
 
@@ -131,7 +127,6 @@ export default {
 
     // 重置查询表单
     resetData() {
-      console.log('重置查询表单')
       this.searchObj = {}
       this.fetchData()
     },
@@ -164,15 +159,11 @@ export default {
 
     // 当表格复选框选项发生变化的时候触发
     handleSelectionChange(selection) {
-      console.log('handleSelectionChange......')
-      console.log(selection)
       this.multipleSelection = selection
     },
 
     // 批量删除
     removeRows() {
-      console.log('removeRows......')
-
       if (this.multipleSelection.length === 0) {
         this.$message({
           type: 'warning',

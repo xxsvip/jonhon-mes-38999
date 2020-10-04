@@ -19,7 +19,7 @@ service.interceptors.request.use(
   },
   error => {
     // Do something with request error
-    console.log(error) // for debug
+    // console.log(error) // for debug
     Promise.reject(error)
   }
 )
@@ -36,7 +36,7 @@ service.interceptors.response.use(
       Message({
         message: res.message,
         type: 'error',
-        duration: 5 * 1000
+        duration: 10 * 1000
       })
       return Promise.reject('error')
     } else {
@@ -44,12 +44,20 @@ service.interceptors.response.use(
     }
   },
   error => {
-    console.log('err' + error) // for debug
-    Message({
-      message: error.message,
-      type: 'error',
-      duration: 5 * 1000
-    })
+    //console.log('err' + error) // for debug
+    if (error.code === 'ECONNABORTED' && error.message.indexOf('timeout') !== -1) {
+      Message({
+        message: "请求超时，请重试",
+        type: 'error',
+        duration: 10 * 1000
+      })
+    }else{
+      Message({
+        message: error.message,
+        type: 'error',
+        duration: 10 * 1000
+      })
+    }
     return Promise.reject(error)
   }
 )

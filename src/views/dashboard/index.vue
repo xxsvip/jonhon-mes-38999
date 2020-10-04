@@ -16,6 +16,10 @@ export default {
       'roles'
     ])
   }
+  // 上面'name'相当于
+  // name() {
+  //       return this.$store.state.name
+  // }
 }
 </script>
 

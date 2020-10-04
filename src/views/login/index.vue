@@ -71,7 +71,9 @@ export default {
       handler: function(route) {
         this.redirect = route.query && route.query.redirect
       },
-      immediate: true
+      immediate: true  //因为有immediate: true 说明加载登录页面时就会执行handler函数.上述代码的意义就是，加载登录页后，直接获取，登录页地址栏的的redirect参数，赋值给this.redirect
+
+
     }
   },
   methods: {
@@ -85,16 +87,15 @@ export default {
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
-         // debugger
           this.loading = true
           this.$store.dispatch('Login', this.loginForm).then(() => {
             this.loading = false
-            this.$router.push({ path: this.redirect || '/' })
+            this.$router.push({ path: this.redirect || '/' })  //this.redirect之后可以根据不同用户角色跳转到不同的页面。
           }).catch(() => {
             this.loading = false
           })
         } else {
-          console.log('error submit!!')
+          //console.log('error submit!!')
           return false
         }
       })

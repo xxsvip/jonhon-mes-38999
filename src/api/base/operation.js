@@ -61,7 +61,17 @@ export default {
         url: `/38999/main/operation/`+operationId,
         method: 'delete'
       })
-}
+},
+
+
+
+  //获取工序列表信息
+  getAll(){
+    return request({
+      url: `/38999/main/operation/getAll`,
+      method: 'get'
+    })
+  }
 
     
 

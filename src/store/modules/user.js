@@ -34,10 +34,9 @@ const user = {
       const username = userInfo.username.trim()
       return new Promise((resolve, reject) => {
         login(username, userInfo.password).then(response => {
-         // debugger
           const data = response.data
           setToken(data.token)
-          commit('SET_TOKEN', data.token)
+          commit('SET_TOKEN', data.token)   //必须要用commit(‘SET_TOKEN’, token)调用mutations里的方法，才能在store存储成功。
           resolve()
         }).catch(error => {
           reject(error)
