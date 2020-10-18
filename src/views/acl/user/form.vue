@@ -26,6 +26,10 @@
         </el-select>
        </el-form-item>
 
+       <el-form-item label="用户工位">
+           <el-cascader v-model="user.workcenterId" :options="workCenterOptions" clearable></el-cascader>
+       </el-form-item>
+
 
       <el-form-item>
         <el-button :disabled="saveBtnDisabled" type="primary" @click="saveOrUpdate">保存</el-button>
@@ -39,12 +43,14 @@
 import userApi from '@/api/acl/user'
 import teamApi from '@/api/base/team'
 import operationApi from '@/api/base/operation'
+import lineApi from '@/api/base/line'
+
 
 
 const defaultForm = {
   username: '',
-  nickName: '',
-  password: ''
+  realName: ''//,
+  // password: ''
 }
 
 // const validatePass = (rule, value, callback) => {
@@ -68,6 +74,7 @@ export default {
       },
       teamList: null,  //用户所在班组信息
       operationList: null , //用户工序信息
+      workCenterOptions: [],
     }
   },
 
@@ -109,6 +116,10 @@ export default {
       operationApi.getAll().then(response => {
         this.operationList = response.data.list
       })
+      //加载产线信息
+      lineApi.getAllWithTree().then(response => {
+        this.workCenterOptions = response.data.finalList;
+      })
 
 
 
@@ -118,6 +129,7 @@ export default {
       this.$refs.user.validate(valid => {
         if (valid) {
           this.saveBtnDisabled = true // 防止表单重复提交
+          this.user.stationId = this.user.workcenterId[this.user.workcenterId.length - 1];  //返回两个值，最后一个为最全的选中项目。
           if (!this.user.id) {
             this.saveData()
           } else {
@@ -160,6 +172,10 @@ export default {
       userApi.getById(id).then(response => {
         //debugger
         this.user = response.data.item
+        if(this.user.stationId){
+          this.user.workcenterId = [this.user.stationId.substr(0,8),this.user.stationId]  //element ui 级联选择需要设置所有选中层级。
+        }
+        
       })
     }
 

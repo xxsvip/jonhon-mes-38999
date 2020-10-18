@@ -61,7 +61,23 @@ export default {
             method: 'post',
             data: line
           })
+    },
+
+
+    //查询产线编号列表
+    getAllWithTree(){
+      return  request({
+        url: `/38999/main/line/getAllWithTree`,
+        method: 'get'
+      })
     }
+
+
+
+
+
+
+
     
 
 

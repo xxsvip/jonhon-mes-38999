@@ -4,7 +4,7 @@
     <!--查询表单-->
     <el-form :inline="true" class="demo-form-inline">
       <el-form-item>
-         <el-input v-model="searchObj.username" placeholder="用户名"/>
+         <el-input v-model="searchObj.username" placeholder="用户工号"/>
       </el-form-item>
 
       <el-button type="primary" icon="el-icon-search" @click="fetchData()">查询</el-button>
@@ -39,7 +39,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="username" label="用户名" width="150" />
+      <el-table-column prop="username" label="用户工号" width="150" />
 
       <el-table-column prop="realName" label="用户姓名" />
 

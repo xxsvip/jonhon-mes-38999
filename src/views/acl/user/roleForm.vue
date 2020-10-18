@@ -43,6 +43,11 @@ export default {
               var jsonObj = response.data.assignRoles
               this.checkedCities = this.getJsonToList(jsonObj,"id")
               this.cities = response.data.allRolesList
+
+              if(jsonObj.length === this.cities.length){
+                this.isIndeterminate = false
+                this.checkAll = true
+              }
           })
       },
       //把json数据转成string再转成对象，根据Key获取value数据
@@ -60,7 +65,7 @@ export default {
         
       },
       handleCheckAllChange(val) {
-        this.checkedCities = val ? this.cities : [];
+        this.checkedCities = val ? this.getJsonToList(this.cities,"id") : [];
         this.isIndeterminate = false;
       },
       handleCheckedCitiesChange(value) {
@@ -72,7 +77,6 @@ export default {
       update(){
         this.saveBtnDisabled = true // 防止表单重复提交
         var ids = this.checkedCities.join(",")
-        console.log(ids)
         //修改权限
         userApi.saveAssign(this.userId, ids).then(response => {
             if(response.success){

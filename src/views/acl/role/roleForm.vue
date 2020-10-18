@@ -31,9 +31,9 @@ export default {
   // 监听器
   watch: {
     $route(to, from) {
-      console.log('路由变化......')
-      console.log(to)
-      console.log(from)
+      // console.log('路由变化......')
+      // console.log(to)
+      // console.log(from)
       this.init()
     }
   },
@@ -56,8 +56,8 @@ export default {
             // debugger;
             var list = []
             this.getJsonToList(list, jsonList[0]['children'])
-            console.log("最终集合")
-            console.log(list)
+            // console.log("最终集合")
+            // console.log(list)
             this.setCheckedKeys(list)
         })
     },

@@ -33,6 +33,7 @@ router.beforeEach(async(to, from, next) => {
           const { roles } = await store.dispatch('GetInfo')
 
           // generate accessible routes map based on roles
+          //获取左侧菜单
           const accessRoutes = await store.dispatch('permission/generateRoutes', roles)
 
           // dynamically add accessible routes
